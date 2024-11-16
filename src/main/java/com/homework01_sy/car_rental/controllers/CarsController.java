@@ -1,7 +1,6 @@
 package com.homework01_sy.car_rental.controllers;
 
 import com.homework01_sy.car_rental.entities.Car;
-import com.homework01_sy.car_rental.entities.Customer;
 import com.homework01_sy.car_rental.repositories.AppResponse;
 import com.homework01_sy.car_rental.services.CarService;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class CarController {
+public class CarsController {
 
     private CarService carService;
-    public CarController(CarService carService) {this.carService = carService;}
+    public CarsController(CarService carService) {this.carService = carService;}
 
     @GetMapping("/cars/{id}")
     public ResponseEntity<?> getCarById(@PathVariable int id) {

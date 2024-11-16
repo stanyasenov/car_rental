@@ -78,4 +78,10 @@ public class CarService {
 
         return this.db.query(query.toString(), new CarMapper());
     }
+
+    // TODO implement delete
+    public boolean deleteCar(int id) {
+        StringBuilder query = new StringBuilder();
+        return false;
+    }
 }

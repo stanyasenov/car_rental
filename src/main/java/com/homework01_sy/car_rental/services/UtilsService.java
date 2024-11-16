@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Service
@@ -19,5 +21,34 @@ public class UtilsService {
         if (!ALLOWED_CITIES.contains(city)) {
             throw new IllegalArgumentException("Service is only available in Plovdiv, Sofia, Varna, and Burgas.");
         }
+    }
+
+    public double calculatePrice(double dailyRate, int rentalDays, boolean hasAccidents) {
+        double total = dailyRate * rentalDays;
+
+        int weekendDays = countWeekendDays(rentalDays);
+        total += (dailyRate * 0.1 * weekendDays);
+
+        if (hasAccidents) {
+            total += 200;
+        }
+
+        return total;
+    }
+
+    public int countWeekendDays(int rentalDays) {
+        LocalDate startDate = LocalDate.now();
+        int weekendDays = 0;
+
+        for (int i = 0; i < rentalDays; i++) {
+            LocalDate currentDate = startDate.plusDays(i);
+            DayOfWeek dayOfWeek = currentDate.getDayOfWeek();
+
+            if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
+                weekendDays++;
+            }
+        }
+
+        return weekendDays;
     }
 }

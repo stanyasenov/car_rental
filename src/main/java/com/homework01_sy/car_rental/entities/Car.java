@@ -16,11 +16,11 @@ public class Car {
         this.id = id;
     }
 
-    public Boolean getIsAvailable() {  // Correct getter for Boolean field
+    public Boolean getIsAvailable() {
         return isAvailable;
     }
 
-    public void setIsAvailable(Boolean isAvailable) {  // Correct setter for Boolean field
+    public void setIsAvailable(Boolean isAvailable) {
         this.isAvailable = isAvailable;
     }
 

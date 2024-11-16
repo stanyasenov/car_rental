@@ -19,6 +19,14 @@ public class CustomerService {
 
     public boolean createCustomer(Customer customer) {
 
+        // Unique phone numbers per customer
+        String checkQuery = "SELECT COUNT(*) FROM customers WHERE phone = ? AND is_active = TRUE";
+        Integer count = db.queryForObject(checkQuery, Integer.class, customer.getPhone());
+
+        if (count != null && count > 0) {
+            throw new IllegalArgumentException("A customer with this phone number already exists.");
+        }
+
         StringBuilder query = new StringBuilder();
         query.append("INSERT INTO customers ");
         query.append("(name, address, phone, age, has_accidents, is_active) ");
@@ -81,5 +89,11 @@ public class CustomerService {
         }
 
         return resultCount == 1;
+    }
+
+    // TODO Implement Soft Delete
+    public boolean deleteCustomer(int id) {
+        StringBuilder query = new StringBuilder();
+        return false;
     }
 }
