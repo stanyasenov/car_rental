@@ -92,4 +92,19 @@ public class CustomersController {
         }
     }
 
+    @DeleteMapping("/customers/{id}")
+    public ResponseEntity<?> removeCustomer(@PathVariable int id) {
+        boolean isUpdateSuccessful =  this.customerService.removeCustomer(id);
+
+        if(!isUpdateSuccessful) {
+            return AppResponse.error()
+                    .withMessage("Customer data not found")
+                    .build();
+        }
+
+        return AppResponse.success()
+                .withMessage("Customer remove successful")
+                .build();
+    }
+
 }

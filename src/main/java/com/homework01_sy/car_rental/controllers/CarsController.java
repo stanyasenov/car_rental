@@ -79,4 +79,19 @@ public class CarsController {
                 .withMessage("Update successful")
                 .build();
     }
+
+    @DeleteMapping("/cars/{id}")
+    public ResponseEntity<?> removeCustomer(@PathVariable int id) {
+        boolean isUpdateSuccessful =  this.carService.removeCar(id);
+
+        if(!isUpdateSuccessful) {
+            return AppResponse.error()
+                    .withMessage("Car data not found")
+                    .build();
+        }
+
+        return AppResponse.success()
+                .withMessage("Car remove successful")
+                .build();
+    }
 }

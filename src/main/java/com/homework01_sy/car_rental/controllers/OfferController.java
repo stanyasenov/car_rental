@@ -6,26 +6,23 @@ import com.homework01_sy.car_rental.repositories.AppResponse;
 import com.homework01_sy.car_rental.services.OfferService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 public class OfferController {
 
-    private OfferService offerService;
+    private OfferService offersService;
 
     public OfferController(OfferService offerService) {
-        this.offerService = offerService;
+        this.offersService = offerService;
     }
 
     @GetMapping("/offers")
     public ResponseEntity<?> getAllOffers() {
         try{
-            List<Offer> offers = offerService.getAllOffers();
+            List<Offer> offers = offersService.getAllOffers();
             if (offers.isEmpty()) {
                 return AppResponse.error()
                         .withMessage("Something went wrong with fetching all offers")
@@ -45,7 +42,7 @@ public class OfferController {
     public ResponseEntity<?> createOffer(@RequestBody OfferRequest offerRequest) {
 
         try {
-            Offer offer = offerService.createOffer(offerRequest.getCustomerId(),
+            Offer offer = offersService.createOffer(offerRequest.getCustomerId(),
                     offerRequest.getCarId(), offerRequest.getRentalDays());
             return AppResponse.success()
                     .withMessage("Offer created successfully")
@@ -56,5 +53,20 @@ public class OfferController {
                     .withMessage("Failed to create offer: " + e.getMessage())
                     .build();
         }
+    }
+
+    @DeleteMapping("/offers/{id}")
+    public ResponseEntity<?> removeCustomer(@PathVariable int id) {
+        boolean isUpdateSuccessful =  this.offersService.removeOffer(id);
+
+        if(!isUpdateSuccessful) {
+            return AppResponse.error()
+                    .withMessage("Offer data not found")
+                    .build();
+        }
+
+        return AppResponse.success()
+                .withMessage("Offer remove successful")
+                .build();
     }
 }

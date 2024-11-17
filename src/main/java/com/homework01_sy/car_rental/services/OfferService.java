@@ -81,10 +81,16 @@ public class OfferService {
         return offers.isEmpty() ? null : offers.get(0);
     }
 
-    // TODO Implement Soft Delete
-    public boolean deleteOffer(int id) {
+    public boolean removeOffer(int id) {
         StringBuilder query = new StringBuilder();
-        return false;
+        query.append("UPDATE offers ")
+                .append("SET is_active = False ")
+                .append("WHERE is_active = True ")
+                .append(" AND id = ?");
+
+        int resultCount = this.db.update(query.toString(), id);
+
+        return resultCount == 1;
     }
 
 }

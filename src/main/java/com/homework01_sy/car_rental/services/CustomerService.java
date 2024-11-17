@@ -91,9 +91,15 @@ public class CustomerService {
         return resultCount == 1;
     }
 
-    // TODO Implement Soft Delete
-    public boolean deleteCustomer(int id) {
+    public boolean removeCustomer(int id) {
         StringBuilder query = new StringBuilder();
-        return false;
+        query.append("UPDATE customers ")
+                .append("SET is_active = False ")
+                .append("WHERE is_active = True ")
+                .append(" AND id = ?");
+
+        int resultCount = this.db.update(query.toString(), id);
+
+        return resultCount == 1;
     }
 }

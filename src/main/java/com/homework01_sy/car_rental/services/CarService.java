@@ -80,8 +80,15 @@ public class CarService {
     }
 
     // TODO implement delete
-    public boolean deleteCar(int id) {
+    public boolean removeCar(int id) {
         StringBuilder query = new StringBuilder();
-        return false;
+        query.append("UPDATE cars ")
+                .append("SET is_active = False ")
+                .append("WHERE is_active = True ")
+                .append(" AND id = ?");
+
+        int resultCount = this.db.update(query.toString(), id);
+
+        return resultCount == 1;
     }
 }

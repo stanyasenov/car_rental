@@ -2719,3 +2719,12 @@ SELECT * FROM offers WHERE is_active = TRUE [42102-224]
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table offer\000d\000arename [*]offers"; expected "COLUMN, CONSTRAINT, TO"; SQL statement:
 alter table offer
 rename offers [42001-224]
+2024-11-17 14:05:25.686215+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TD_CUSTOMERS" not found; SQL statement:
+UPDATE td_customers SET is_active = False,WHERE is_active = True  AND id = ? [42102-224]
+2024-11-17 14:06:01.681309+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "UPDATE customers SET is_active = False,[*]WHERE is_active = True  AND id = ?"; expected "identifier"; SQL statement:
+UPDATE customers SET is_active = False,WHERE is_active = True  AND id = ? [42001-224]
+2024-11-17 14:06:23.821688+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "UPDATE customers SET is_active = False, [*]WHERE is_active = True  AND id = ?"; expected "identifier"; SQL statement:
+UPDATE customers SET is_active = False, WHERE is_active = True  AND id = ? [42001-224]
